@@ -1,6 +1,6 @@
 {
   "id": "no.runely.calendar",
-  "version": "0.2.3",
+  "version": "0.2.5",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "brandColor": "#05A22C",
@@ -42,6 +42,13 @@
         "name": "Dirk Göbel"
       }
     ]
+  },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "runely"
+      }
+    }
   },
   "tags": {
     "en": [
@@ -108,7 +115,126 @@
             "title": {
               "en": "Location",
               "no": "Sted",
-              "nl": "Lokatie",
+              "nl": "Locatie",
+              "de": "Ort"
+            },
+            "example": {
+              "en": "Kindergarden street, 30",
+              "no": "Barnehagegata, 30",
+              "nl": "Schoolstraat 30",
+              "de": "Kindergartenstraße 30"
+            }
+          },
+          {
+            "name": "event_duration_readable",
+            "type": "string",
+            "title": {
+              "en": "Duration",
+              "no": "Varighet",
+              "nl": "Looptijd",
+              "de": "Dauer"
+            },
+            "example": {
+              "en": "1.5 hour",
+              "no": "1.5 time",
+              "nl": "1.5 uur",
+              "de": "1.5 Stunden"
+            }
+          },
+          {
+            "name": "event_duration",
+            "type": "number",
+            "title": {
+              "en": "Duration in minutes",
+              "no": "Varighet i minutter",
+              "nl": "Looptijd in minuten",
+              "de": "Dauer in Minuten"
+            },
+            "example": {
+              "en": "90",
+              "no": "90",
+              "nl": "90",
+              "de": "90"
+            }
+          },
+          {
+            "name": "event_calendar_name",
+            "type": "string",
+            "title": {
+              "en": "Calendar name",
+              "no": "Kalendernavn",
+              "nl": "Kalender naam",
+              "de": "Kalenderbezeichnung"
+            },
+            "example": {
+              "en": "Gmail",
+              "no": "Gmail",
+              "nl": "Gmail",
+              "de": "Gmail"
+            }
+          }
+        ]
+      },
+      {
+        "id": "event_starts_calendar",
+        "title": {
+          "en": "Event starts from calendar",
+          "no": "En avtale starter fra kalender",
+          "nl": "Event begint vanaf de kalender",
+          "de": "Ereignis startet aus dem Kalender"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "calendar",
+            "placeholder": {
+              "en": "Choose calendar...",
+              "no": "Velg kalender...",
+              "nl": "Selecteer kalender...",
+              "de": "Kalender auswählen..."
+            }
+          }
+        ],
+        "tokens": [
+          {
+            "name": "event_name",
+            "type": "string",
+            "title": {
+              "en": "Title",
+              "no": "Tittel",
+              "nl": "Titel",
+              "de": "Titel"
+            },
+            "example": {
+              "en": "Pick up in kindergarden",
+              "no": "Hente i barnehagen",
+              "nl": "Kinderen ophalen",
+              "de": "Im Kindergarten abholen"
+            }
+          },
+          {
+            "name": "event_description",
+            "type": "string",
+            "title": {
+              "en": "Description",
+              "no": "Beskrivelse",
+              "nl": "Omschrijving",
+              "de": "Beschreibung"
+            },
+            "example": {
+              "en": "Pick up kids in kindergarden",
+              "no": "Hente barna fra barnehagen",
+              "nl": "Haal de kinderen van school op",
+              "de": "Kinder im Kindergarten abholen"
+            }
+          },
+          {
+            "name": "event_location",
+            "type": "string",
+            "title": {
+              "en": "Location",
+              "no": "Sted",
+              "nl": "Locatie",
               "de": "Ort"
             },
             "example": {
@@ -215,7 +341,7 @@
             "title": {
               "en": "Location",
               "no": "Sted",
-              "nl": "Lokatie",
+              "nl": "Locatie",
               "de": "Ort"
             },
             "example": {
@@ -283,7 +409,7 @@
             "placeholder": {
               "en": "Amount",
               "no": "Antall",
-              "nl": "Bedrag",
+              "nl": "Aantal",
               "de": "Menge"
             }
           },
@@ -378,7 +504,7 @@
             "title": {
               "en": "Location",
               "no": "Sted",
-              "nl": "Lokatie",
+              "nl": "Locatie",
               "de": "Ort"
             },
             "example": {
@@ -531,7 +657,7 @@
             "placeholder": {
               "en": "Amount",
               "no": "Antall",
-              "nl": "Bedrag",
+              "nl": "Aantal",
               "de": "Menge"
             }
           },
@@ -544,7 +670,7 @@
                 "label": {
                   "en": "Minute(s)",
                   "no": "Minutt(er)",
-                  "nl": "Minuten",
+                  "nl": "Minu(u)t(en)",
                   "de": "Minuten"
                 }
               },
@@ -553,7 +679,7 @@
                 "label": {
                   "en": "Hour(s)",
                   "no": "Time(r)",
-                  "nl": "Uur",
+                  "nl": "U(u)r(en)",
                   "de": "Stunden"
                 }
               },
@@ -562,7 +688,7 @@
                 "label": {
                   "en": "Day(s)",
                   "no": "Dag(er)",
-                  "nl": "Dagen",
+                  "nl": "Dag(en)",
                   "de": "Tage"
                 }
               },
@@ -571,7 +697,7 @@
                 "label": {
                   "en": "Week(s)",
                   "no": "Uke(r)",
-                  "nl": "Weken",
+                  "nl": "We(e)k(en)",
                   "de": "Wochen"
                 }
               }
@@ -582,10 +708,10 @@
       {
         "id": "event_in",
         "title": {
-          "en": "Event !{{starts|doesn't start}} within...",
-          "no": "Avtale !{{starter|starter ikke}} innen...",
-          "nl": "Event !{{start|start niet}} over...",
-          "de": "Ereignis !{{beginnt|beginnt nicht}} innerhalb..."
+          "en": "Specific event !{{starts|doesn't start}} within...",
+          "no": "Spesifikk avtale !{{starter|starter ikke}} innen...",
+          "nl": "Specifiek event !{{start|start niet}} over...",
+          "de": "Spezifisches Ereignis !{{beginnt|beginnt nicht}} innerhalb..."
         },
         "args": [
           {
@@ -606,7 +732,7 @@
             "placeholder": {
               "en": "Amount",
               "no": "Antall",
-              "nl": "Bedrag",
+              "nl": "Aantal",
               "de": "Menge"
             }
           },
@@ -619,7 +745,7 @@
                 "label": {
                   "en": "Minute(s)",
                   "no": "Minutt(er)",
-                  "nl": "Minuten",
+                  "nl": "Minu(u)t(en)",
                   "de": "Minuten"
                 }
               },
@@ -628,7 +754,7 @@
                 "label": {
                   "en": "Hour(s)",
                   "no": "Time(r)",
-                  "nl": "Uur",
+                  "nl": "U(u)r(en)",
                   "de": "Stunden"
                 }
               },
@@ -637,7 +763,7 @@
                 "label": {
                   "en": "Day(s)",
                   "no": "Dag(er)",
-                  "nl": "Dagen",
+                  "nl": "Dag(en)",
                   "de": "Tage"
                 }
               },
@@ -646,7 +772,7 @@
                 "label": {
                   "en": "Week(s)",
                   "no": "Uke(r)",
-                  "nl": "Weken",
+                  "nl": "We(e)k(en)",
                   "de": "Wochen"
                 }
               }
@@ -657,10 +783,10 @@
       {
         "id": "event_ongoing",
         "title": {
-          "en": "Event !{{is|isn't}} ongoing",
-          "no": "Avtale !{{pågår|pågår ikke}}",
-          "nl": "Event !{{is|is niet}} bezig",
-          "de": "Ereignis !{{ist|ist nicht}} laufend"
+          "en": "Specific event !{{is|isn't}} ongoing",
+          "no": "Spesifikk avtale !{{pågår|pågår ikke}}",
+          "nl": "Specifiek event !{{is|is niet}} bezig",
+          "de": "Spezifisches Ereignis !{{ist|ist nicht}} laufend"
         },
         "args": [
           {
@@ -678,10 +804,10 @@
       {
         "id": "event_stops_in",
         "title": {
-          "en": "Event !{{stops|doesn't stop}} within...",
-          "no": "Avtale !{{stopper|stopper ikke}} innen...",
-          "nl": "Event !{{stopt|stopt niet}} over...",
-          "de": "Ereignis !{{endet|endet nicht}} innerhalb..."
+          "en": "Specific event !{{stops|doesn't stop}} within...",
+          "no": "Spesifikk avtale !{{stopper|stopper ikke}} innen...",
+          "nl": "Specifiek event !{{stopt|stopt niet}} over...",
+          "de": "Spezifisches Ereignis !{{endet|endet nicht}} innerhalb..."
         },
         "args": [
           {
@@ -702,7 +828,7 @@
             "placeholder": {
               "en": "Amount",
               "no": "Antall",
-              "nl": "Bedrag",
+              "nl": "Aantal",
               "de": "Menge"
             }
           },
@@ -715,7 +841,7 @@
                 "label": {
                   "en": "Minute(s)",
                   "no": "Minutt(er)",
-                  "nl": "Minuten",
+                  "nl": "Minu(u)t(en)",
                   "de": "Minuten"
                 }
               },
@@ -724,7 +850,7 @@
                 "label": {
                   "en": "Hour(s)",
                   "no": "Time(r)",
-                  "nl": "Uur",
+                  "nl": "U(u)r(en)",
                   "de": "Stunden"
                 }
               },
@@ -733,7 +859,7 @@
                 "label": {
                   "en": "Day(s)",
                   "no": "Dag(er)",
-                  "nl": "Dagen",
+                  "nl": "Dag(en)",
                   "de": "Tage"
                 }
               },
@@ -742,7 +868,7 @@
                 "label": {
                   "en": "Week(s)",
                   "no": "Uke(r)",
-                  "nl": "Weken",
+                  "nl": "We(e)k(en)",
                   "de": "Wochen"
                 }
               }

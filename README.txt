@@ -2,7 +2,10 @@ The IcalCalendar gives Homey flow cards to trigger on your calendar events
 
 Setup
 
-- Open settings (configure app) and paste in the ical link
+- Open settings (configure app)
+    - Paste in the ical link
+    - Change the date/time format or use the default (your choice)
+    - Choose whether or not you want next event tags per calendar. Default is off
 
 Find Exchange Online ical link
 
@@ -39,12 +42,13 @@ Sync
 Triggers
 - Event starts
 - Event starts in
+- Event starts from calendar
 - Event stops
 
 Conditions
-- Event is ongoing
-- Event starts within
-- Event stops within
+- Specific event is ongoing
+- Specific event starts within
+- Specific event stops within
 - Any event is ongoing
 - Any event starts within
 - Any event stops within
@@ -52,7 +56,7 @@ Conditions
 Actions
 - Sync calendars
 
-Global flow tokens (can be used in any app and service)
+Global flow tags (can be used in any app and service)
 - Next event title
 - Next event start date
 - Next event start time
@@ -69,3 +73,10 @@ Global flow tokens (can be used in any app and service)
 - Tomorrows events (count)
 - Todays events per calendar
 - Tomorrows events per calendar
+
+Next event tags per calendar (can be turned on in the settings)
+- Next event title in %calendarname%
+- Next event start date in %calendarname%
+- Next event start time in %calendarname%
+- Next event stop date in %calendarname%
+- Next event stop time in %calendarname%

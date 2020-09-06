@@ -2,7 +2,10 @@ IcalCalendar gir Homey flytkort som kan utløses på kalenderavtalene dine
 
 Oppsett
 
-- Åpne innstillinger (konfigurer app) og lim inn ical-lenken
+- Åpne innstillinger (konfigurer app)
+    - Lim inn ical-lenken
+    - Endre dato-/tidsformat eller bruk standardverdiene (ditt valg)
+    - Velg om du vil ha neste avtaletagger per kalender eller ikke. Standard er av
 
 Hvordan finne Exchange Online ical-lenken
 
@@ -39,12 +42,13 @@ Sync
 Triggers
 - En avtale starter
 - En avtale starter om
+- En avtale starter fra kalender
 - En avtale ender
 
 Conditions
-- Avtale pågår
-- Avtale starter innen
-- Avtale stopper innen
+- Spesifikk avtale pågår
+- Spesifikk avtale starter innen
+- Spesifikk avtale stopper innen
 - En avtale pågår
 - En avtale starter innen
 - En avtale stopper innen
@@ -52,7 +56,7 @@ Conditions
 Actions
 - Synkroniser kalenderene
 
-Globale flyt tokens (kan bli brukt i alle apper og servicer)
+Globale flyt tagger (kan bli brukt i alle apper og servicer)
 - Tittel neste avtale
 - Startdato neste avtale
 - Starttidspunkt neste avtale
@@ -69,3 +73,10 @@ Globale flyt tokens (kan bli brukt i alle apper og servicer)
 - Morgendagens avtaler (antall)
 - Dagens avtaler pr kalender
 - Morgendagens avtaler pr kalender
+
+Neste avtaletagger per kalender (kan aktiveres i innstillinger)
+- Tittel neste avtale i %calendarname%
+- Startdato neste avtale i %calendarname%
+- Starttidspunkt neste avtale i %calendarname%
+- Stoppdato neste avtale i %calendarname%
+- Stopptidspunkt neste avtale i %calendarname%

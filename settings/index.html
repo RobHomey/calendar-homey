@@ -16,14 +16,6 @@
                 color: red;
                 font-weight: bold;
             }
-
-            .input-name {
-                width: 110px;
-            }
-            
-            .input-uri {
-                width: 200px;
-            }
         </style>
 
         <!-- Homey settings -->
@@ -41,18 +33,41 @@
 
         <div id="calendars">
             <fieldset class="clonable">
-                <legend data-i18n="settings.legend"></legend>
+                <legend data-i18n="settings.calendars.legend"></legend>
 
-                <strong data-i18n="settings.calendar_name"></strong><br>
-                <input class="input-name" id="uri-name" type="text" value="" /><br><br>
+                <strong data-i18n="settings.calendars.name"></strong><br>
+                <input id="uri-name" type="text" value="" /><br><br>
 
-                <strong data-i18n="settings.calendar_uri"></strong><br>
-                <input class="input-uri" id="uri-uri" type="text" value="" />
+                <strong data-i18n="settings.calendars.uri"></strong><br>
+                <input id="uri-uri" type="text" value="" />
             </fieldset>
         </div>
 
-        <button id="newItem" class="right" data-i18n="settings.new_item_button"></button>
-        <button id="save" class="right" data-i18n="settings.save_button"></button>
+        <div class="datetime">
+            <fieldset>
+                <legend data-i18n="settings.datetime.legend"></legend>
+
+                <p data-i18n="settings.datetime.date.description"></p>
+                <strong data-i18n="settings.datetime.date.name"></strong><br>
+                <input id="datetime-date" type="text" value="" minlength="6" maxlength="10" pattern="[DM]{1,2}[/.-][DM]{1,2}[/.-][Y]{2,4}" /><br><br>
+
+                <p data-i18n="settings.datetime.time.description"></p>
+                <strong data-i18n="settings.datetime.time.name"></strong><br>
+                <input id="datetime-time" type="text" value="" minlength="3" maxlength="5" pattern="[Hh]{1,2}[:.][m]{1,2}" />
+            </fieldset>
+        </div>
+
+        <div class="misc">
+            <fieldset>
+                <legend data-i18n="settings.misc.legend"></legend>
+
+                <strong data-i18n="settings.misc.nextEventTokensPerCalendar"></strong><br>
+                <input id="misc-nextEventTokensPerCalendar" type="checkbox" />
+            </fieldset>
+        </div>
+
+        <button id="newItem" class="right" data-i18n="settings.buttons.new_item"></button>
+        <button id="save" class="right" data-i18n="settings.buttons.save"></button>
 
         <div id="uri_error" class="uri-error-hidden"></div>
 
@@ -64,19 +79,65 @@
                 // Tell Homey we're ready to be displayed
                 Homey.ready();
 
-                var newItemElement = document.getElementById('newItem');
-                var saveElement = document.getElementById('save');
+                let settingsUris = 'uris';
+                let settingsDateFormat = 'dateFormat';
+                let settingsTimeFormat = 'timeFormat';
+                let settingsMiscNextEventTokensPerCalendar = "nextEventTokensPerCalendar";
+                let newItemElement = document.getElementById('newItem');
+                let saveElement = document.getElementById('save');
 
                 // get uri from settings
-                Homey.get('uris', (err, uris) => {
+                Homey.get(settingsUris, (err, uris) => {
                     if (err) return Homey.alert(err);
                     getCalendarItems(uris);
                 });
 
+                // get date from settings
+                Homey.get(settingsDateFormat, (err, date) => {
+                    if (err) return Homey.alert(err);
+                    getDateTimeFormat('date', date);
+                });
+
+                // get time from settings
+                Homey.get(settingsTimeFormat, (err, time) => {
+                    if (err) return Homey.alert(err);
+                    getDateTimeFormat('time', time);
+                });
+
+                // get nextEventTokensPerCalendar from settings
+                Homey.get(settingsMiscNextEventTokensPerCalendar, (err, state) => {
+                    if (err) return Homey.alert(err);
+                    getMiscSetting(settingsMiscNextEventTokensPerCalendar, state);
+                });
+
                 // save uri to settings
                 saveElement.addEventListener('click', function(e) {
-                    Homey.set('uris', saveCalendarItems(), function(err) {
+                    Homey.set(settingsUris, saveCalendarItems(), function(err) {
                         if(err) return Homey.alert(err);
+                    });
+
+                    let savedDateFormat = saveDateTimeFormat('date');
+                    if (savedDateFormat) {
+                        Homey.set(settingsDateFormat, savedDateFormat, function(err) {
+                            if (err) return Homey.alert(err);
+                        });
+
+                        let savedTimeFormat = saveDateTimeFormat('time');
+                        if (savedTimeFormat) {
+                            Homey.set(settingsTimeFormat, savedTimeFormat, function(err) {
+                                if (err) return Homey.alert(err);
+                            });
+                        }
+                        else {
+                            return;
+                        }
+                    }
+                    else {
+                        return;
+                    }
+
+                    Homey.set(settingsMiscNextEventTokensPerCalendar, saveMiscSetting(settingsMiscNextEventTokensPerCalendar), function(err) {
+                        if (err) return Homey.alert(err);
                     });
 
                     hideError();
@@ -89,9 +150,9 @@
                 });
 
                 // if uri_failed exists as a setting, show error div
-                getUriFailedSetting();
+                getUriFailedSetting(settingsUris);
 
-                setInterval(() => getUriFailedSetting(), 3000);
+                setInterval(() => getUriFailedSetting(settingsUris), 3000);
             }
 
             function newCalendarItem(name = null, uri = null) {
@@ -105,13 +166,13 @@
                 newElement.children[8].id = `uri-uri${newElementIndex}`;
 
                 // create remove button
-                let removeButton = document.createElement("button");
+                let removeButton = document.createElement('button');
                 removeButton.onclick = function () {
                     document.getElementById('calendars').removeChild(this.parentNode);
                 }
-                removeButton.textContent = Homey.__('settings.remove_button');
-                newElement.appendChild(document.createElement("br"));
-                newElement.appendChild(document.createElement("br"));
+                removeButton.textContent = Homey.__('settings.buttons.remove');
+                newElement.appendChild(document.createElement('br'));
+                newElement.appendChild(document.createElement('br'));
                 newElement.appendChild(removeButton);
 
                 // set values
@@ -133,15 +194,36 @@
                 }
             }
 
+            function getDateTimeFormat(type, format) {
+                if (!format) {
+                    format = Homey.__(`settings.datetime.${type}.default`);
+                }
+
+                document.getElementById(`datetime-${type}`).value = format;
+            }
+
+            function getMiscSetting(setting, state) {
+                if (state) {
+                    let element = document.getElementById(`misc-${setting}`);
+                    if (typeof state === 'boolean') {
+                        element.checked = state;
+                    }
+                    else if (typeof state === 'string') {
+                        element.value = state;
+                    }
+                }
+            }
+
             function saveCalendarItems() {
-                let calendars = unfuckHtmlFuck(document.getElementById('calendars').children)
+                let calendars = unfuckHtmlFuck(document.getElementById('calendars').children);
                 
-                return calendars.filter(calendar => calendar.localName === "fieldset").map(calendar => {
+                return calendars.filter(calendar => calendar.localName === 'fieldset').map(calendar => {
                     let name = calendar.children[3].value;
                     let uri = calendar.children[8].value;
 
                     // Replace webcal:// urls (from iCloud) with https://
-                    uri = uri.replace("webcal://", "https://");
+                    // WARNING: Apple iCal URL's are case sensitive!!!!!!!!! DO NOT LOWER CASE!!!!!!!!
+                    uri = uri.replace('webcal://', 'https://');
 
                     return {
                         name: name,
@@ -150,28 +232,58 @@
                 });
             }
 
-            function getUriFailedSetting() {
-                Homey.get('uris', (err, uris) => {
+            function saveMiscSetting(setting) {
+                let element = document.getElementById(`misc-${setting}`);
+                if (element.type === 'checkbox') {
+                    return element.checked;
+                }
+                else if (element.type === 'text') {
+                    return element.value;
+                }
+            }
+
+            function saveDateTimeFormat(type) {
+                let inputField = document.getElementById(`datetime-${type}`);
+                if (inputField.validity.patternMismatch) {
+                    Homey.alert(`${type} has invalid pattern`);
+                }
+                else if (inputField.validity.tooShort) {
+                    Homey.alert(`${type} is too short`);
+                }
+                else if (inputField.validity.tooLong) {
+                    Homey.alert(`${type} is too long`);
+                }
+
+                if (inputField.validity.valid) {
+                    return inputField.value;
+                }
+                else {
+                    return null;
+                }
+            }
+
+            function getUriFailedSetting(setting) {
+                Homey.get(setting, (err, uris) => {
                     if (err) {
                         hideError();
                         return Homey.alert(err);
                     }
 
-                    var text = "";
+                    let text = '';
                     if (uris != undefined) {
                         uris.forEach(item => {
                             if (item.failed) {
-                                if (text === "") {
-                                    text = item.name + " : " + item.failed;
+                                if (text === '') {
+                                    text = `${item.name} : ${item.failed}`;
                                 }
                                 else {
-                                    text += "<br>" + item.name + " : " + item.failed;
+                                    text += `<br>${item.name} : ${item.failed}`;
                                 }
                             }
                         });
                     }
 
-                    if (text !== "") {
+                    if (text !== '') {
                         showError(text);
                     }
                     else {
@@ -181,7 +293,7 @@
             }
             
             function hideError() {
-                var errorElement = document.getElementById('uri_error');
+                let errorElement = document.getElementById('uri_error');
 
                 errorElement.classList = 'uri-error-hidden';
             }
@@ -189,12 +301,12 @@
             function showError(text) {
                 let errorElement = document.getElementById('uri_error');
 
-                errorElement.innerHTML = Homey.__('settings.uri_load_failure') + "<br>" + text;
+                errorElement.innerHTML = `${Homey.__('settings.uri_load_failure')}<br>${text}`;
                 errorElement.classList = 'uri-error-show';
             }
 
             function unfuckHtmlFuck(fucker) {
-                var fucky = [];
+                let fucky = [];
 
                 for (const fuck in fucker) {
                     fucky.push(fucker[fuck]);

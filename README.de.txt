@@ -2,7 +2,10 @@ Der IcalCalender erweitert Homey um Flow-Karten, um Kalenderereignisse als Trigg
 
 Setup
 
-- Einstellungen öffnen (App konfigurieren) und den ical-Link einfügen
+- Einstellungen öffnen (App konfigurieren)
+    - Den ical-Link einfügen
+    - Ändern Sie das Datums- / Uhrzeitformat oder verwenden Sie die Standardeinstellung (Ihre Wahl)
+    - Wählen Sie aus, ob Sie die nächsten Ereignistags pro Kalender möchten oder nicht. Standard ist aus
 
 Den Exchange Online ical-Link finden
 
@@ -39,12 +42,13 @@ Sync
 Trigger
 - Ereignis beginnt
 - Ereignis beginnt in
+- Ereignis startet aus dem Kalender
 - Ereignis endet
 
 Bedingungen
-- Ereignis ist laufend
-- Ereignis beginnt innerhalb
-- Ereignis endet innerhalb
+- Spezifisches Ereignis ist laufend
+- Spezifisches Ereignis beginnt innerhalb
+- Spezifisches Ereignis endet innerhalb
 - Irgendein Ereignis ist laufend
 - Irgendein Ereignis beginnt innerhalb
 - Irgendein Ereignis endet innerhalb
@@ -52,11 +56,11 @@ Bedingungen
 Aktionen
 - Kalender synchronisieren
 
-Globale Flow-Token (können in jeder Anwendung und jedem Dienst verwendet werden)
+Globale Flow-Tags (können in jeder Anwendung und jedem Dienst verwendet werden)
 - Nächster Ereignistitel
-- Startdatum der nächsten Ereignisses
+- Startdatum der nächsten Ereignisse
 - Beginn des nächsten Ereignisses
-- Enddatum der nächsten Ereignisses
+- Enddatum der nächsten Ereignisse
 - Ende des nächsten Ereignisses
 - Nächste Ereignisdauer
 - Nächste Ereignisdauer (Minuten)
@@ -69,3 +73,10 @@ Globale Flow-Token (können in jeder Anwendung und jedem Dienst verwendet werden
 - Morgige Ereignisse (Anzahl)
 - Heutige Ereignisse pro Kalender
 - Morgige Ereignisse pro Kalender
+
+Die nächsten Ereignistags pro Kalender (kann in den Einstellungen aktiviert werden)
+- Nächster Ereignistitel in %calendarname%
+- Startdatum der nächsten Ereignisses in %calendarname%
+- Beginn des nächsten Ereignisses in %calendarname%
+- Enddatum der nächsten Ereignisses in %calendarname%
+- Ende des nächsten Ereignisses in %calendarname%

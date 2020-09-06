@@ -4,7 +4,10 @@ The IcalCalendar gives Homey flow cards to trigger on your calendar events
 
 ## Setup
 
-- Open settings (configure app) and paste in the ical link
+- Open settings (configure app)
+    - Paste in the ical link
+    - Change the date/time format or use the default (your choice)
+    - Choose whether or not you want next event tags per calendar. Default is off
 
 ### Find Exchange Online ical link
 
@@ -43,12 +46,13 @@ The IcalCalendar gives Homey flow cards to trigger on your calendar events
 ### Triggers
 - **Event starts** - *will trigger when any event starts*
 - **Event starts in** - *will trigger when any event starts in when specified*
+- **Event starts from calendar** - *will trigger when any event in specified calender starts*
 - **Event stops** - *will trigger when any event stops*
 
 ### Conditions
-- **Event is ongoing** - *will check if specified event is|isn't ongoing*
-- **Event starts within** - *will check if specified event starts|doesn't start within when specified*
-- **Event stops within** - *will check if specified event stops|doesn't stop within when specified*
+- **Specific event is ongoing** - *will check if specified event is|isn't ongoing*
+- **Specific event starts within** - *will check if specified event starts|doesn't start within when specified*
+- **Specific event stops within** - *will check if specified event stops|doesn't stop within when specified*
 - **Any event is ongoing** - *will check if any event is|isn't ongoing*
 - **Any event starts within** - *will check if any event starts|doesn't start within when specified*
 - **Any event stops within** - *will check if any event stops|doesn't stop within when specified*
@@ -56,7 +60,7 @@ The IcalCalendar gives Homey flow cards to trigger on your calendar events
 ### Actions
 - **Sync calendars** - *will download new .ics files to update current events*
 
-### Flow tokens on triggers
+### Flow tags on triggers
 - Event title
 - Event description
 - Event location
@@ -64,7 +68,7 @@ The IcalCalendar gives Homey flow cards to trigger on your calendar events
 - Event duration (mintes)
 - Calendar name
 
-### Global flow tokens (can be used in any app and service)
+### Global flow tags (can be used in any app and service)
 - Next event title
 - Next event start date
 - Next event start time
@@ -82,6 +86,13 @@ The IcalCalendar gives Homey flow cards to trigger on your calendar events
 - Todays events (per calendar)
 - Tomorrows events (per calendar)
 
+### Next event tags per calendar (can be turned on in the settings)
+- Next event title in %calendarname%
+- Next event start date in %calendarname%
+- Next event start time in %calendarname%
+- Next event stop date in %calendarname%
+- Next event stop time in %calendarname%
+
 
 ## Recurring events
 
@@ -92,15 +103,35 @@ The IcalCalendar gives Homey flow cards to trigger on your calendar events
 
 - Searching events in condition card, returns no events when search query has a space followed with a character (Example: 'Test f')
 
+## Tutorial
+
+Visit [this tutorial](https://community.athom.com/t/trigger-a-flow-using-calendar-events/34017) created by [@RobHomey](https://github.com/RobHomey) for a good summary of the apps possibilities!
+
 ## Changelog
 
+- 0.2.6
+    - Next event tags per calendar can be toggled on/off in settings (default is off). Will add the following tags per calendar:
+        - Next event title in %calendarname%
+        - Next event start date in %calendarname%
+        - Next event start time in %calendarname%
+        - Next event stop date in %calendarname%
+        - Next event stop time in %calendarname%
+- 0.2.5
+    - Date and Time format used in the app can now be changed in the settings. If not changed, default is used.
+    - Added trigger 'Event starts from calendar'
+    - [@dirkg173](https://github.com/dirkg173): Fixed German translation
+- 0.2.4
+    - Specific event conditions made more readable
+    - Bugfix: Tags for todays and tomorrows events pr calendar were flushed completely every time calendars were synced
+    - Tags 'Todays events, title and time', 'Tomorrows events, title and time', Todays events (per calendar) and Tomorrows events (per calendar) made more TTS friendly
+    - [@RobHomey](https://github.com/RobHomey): Fixed dutch translation
 - 0.2.3
     - [@RobHomey](https://github.com/RobHomey): Fixed dutch translation
 - 0.2.2
     - Conditions/Trigger improved by setting amount in minute(s)/hour(s)/day(s)/week(s)
     - [@RobHomey](https://github.com/RobHomey): Fixed dutch translation
 - 0.2.1
-    - Next event more Google TTS friendly
+    - Next event more TTS friendly
 - 0.2.0
     - Fixed German typo's
     - Fixed Dutch typo's
@@ -110,9 +141,9 @@ The IcalCalendar gives Homey flow cards to trigger on your calendar events
     - Flow card 'Any event stops within' changed to enter minutes in free text (number)
     - Flow card 'Event starts within' changed to enter minutes in free text (number)
     - Flow card 'Event stops within' changed to enter minutes in free text (number)
-    - Global token 'Next event start time' split up to 'Next event start date' and 'Next event start time'
-    - Global token 'Next event stop time' split up to 'Next event stop date' and 'Next event stop time'
-    - 'Next event start date' and 'Next event stop date' made more Google TTS friendly
+    - Global tag 'Next event start time' split up to 'Next event start date' and 'Next event start time'
+    - Global tag 'Next event stop time' split up to 'Next event stop date' and 'Next event stop time'
+    - 'Next event start date' and 'Next event stop date' made more TTS friendly
 - 0.1.4
     - German translation. Thanks to [@dirkg173](https://github.com/dirkg173) -> [Issue #62](https://github.com/runely/calendar-homey/issues/62)
 - 0.1.3
@@ -130,27 +161,27 @@ The IcalCalendar gives Homey flow cards to trigger on your calendar events
     - Bugfix: [Typo in the Norwegian locale](https://github.com/runely/calendar-homey/issues/42)
     - Added more choices (timespan) for triggers and conditions
     - Added possibility to remove calendars from settings
-    - Added global flow tokens for tomorrows events -> [Issue #36](https://github.com/runely/calendar-homey/issues/36)
+    - Added global flow tags for tomorrows events -> [Issue #36](https://github.com/runely/calendar-homey/issues/36)
     - Todays events and Tomorrows events are now sorted by start time -> [Issue #51](https://github.com/runely/calendar-homey/issues/51)
     - Todays and tomorrows events pr calendar -> [Issue #44](https://github.com/runely/calendar-homey/issues/44)
-    - Todays and tomorrows events tokens no longer include 'Todays events' and 'Tomorrows events' in the token value
+    - Todays and tomorrows events tags no longer include 'Todays events' and 'Tomorrows events' in the tag value
 - 0.1.0
     - Added support for Mailfence (DTSTART;VALUE=DATE-TIME / DTEND;VALUE=DATE-TIME)
     - Added support for recurring events :D
     - Bugfix: Todays events did not show events with stop date greater than start date
-    - Bugfix: Global tokens were not proparly set as empty before calendars were set
-    - Bugfix: Flow tokens/triggers were evaluated even before any events existed
+    - Bugfix: Global tags were not proparly set as empty before calendars were set
+    - Bugfix: Flow tags/triggers were evaluated even before any events existed
     - Condition event chooser rewritten
     - Event list sorted by start date
     - New icon
 - 0.0.6
-    - Added global flow tokens for next event and todays events -> Part of issue [Issue #7](https://github.com/runely/calendar-homey/issues/7)
-    - Added token 'Calendar name' to 'Event starts' and 'Event stops' triggers
+    - Added global flow tags for next event and todays events -> Part of issue [Issue #7](https://github.com/runely/calendar-homey/issues/7)
+    - Added tag 'Calendar name' to 'Event starts' and 'Event stops' triggers
     - Added trigger 'Event starts in' -> [Issue #7](https://github.com/runely/calendar-homey/issues/7)
 - 0.0.5
     - Added support for norwegian language -> [Issue #6](https://github.com/runely/calendar-homey/issues/6)
     - Added action for Sync calendar -> [Issue #3](https://github.com/runely/calendar-homey/issues/3)
-    - Added duration tokens to trigger 'Event starts' -> [Issue #16](https://github.com/runely/calendar-homey/issues/16)
+    - Added duration tags to trigger 'Event starts' -> [Issue #16](https://github.com/runely/calendar-homey/issues/16)
     - Added trigger 'Event stops' -> [Issue #4](https://github.com/runely/calendar-homey/issues/4)
     - Added conditions 'Any event stops in...' and 'Event stops in...' -> [Issue #4](https://github.com/runely/calendar-homey/issues/4)
     - Added support for multiple calendars -> [Issue #17](https://github.com/runely/calendar-homey/issues/17)
@@ -165,7 +196,7 @@ The IcalCalendar gives Homey flow cards to trigger on your calendar events
     - Event list in condition card shows if the event is recurring and/or full day
 - 0.0.2: 
     - Bugfix: "triggerEvents" failed when events were not imported yet
-    - Bugfix: Tokens are validated before set (replacing '\n' or '\r' or null with '')
+    - Bugfix: Tags are validated before set (replacing '\n' or '\r' or null with '')
     - Added trigger for any events started
     - Bugfix: "Event is ongoing" validated to true when a started event was missing a stop time
     - Updated README.txt with info from README.md (and make it look good)
@@ -173,3 +204,14 @@ The IcalCalendar gives Homey flow cards to trigger on your calendar events
     - Changed brandColor
 - 0.0.1:
     - Initial version
+
+# Thanks
+
+- Translators
+    - [@RobHomey](https://github.com/RobHomey) : Dutch
+    - [@dirkg173](https://github.com/dirkg173) : German
+
+---
+If you like the app, buy me a cup of :coffee:
+
+[![Donate](https://img.shields.io/badge/Donate-PayPal-yellow.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=5L63S5KQFBRYL&currency_code=NOK&source=url)
